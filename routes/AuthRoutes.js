@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("../config");
 
 const User = require("../models/User");
 
+// route health check
 router.get("/", async (req, res, next) => {
   try {
     return res.status(201).json({ message: "in auth users route" });
@@ -14,6 +14,8 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+// login an existing user
+// verify and compare that user exists in users table
 router.post("/login", async (req, res, next) => {
   try {
     const user = await User.login(req.body);
@@ -23,12 +25,15 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
+// register a new user in database
+// verify that user credentials are valid
+// assign a token
 router.post("/register", async (req, res, next) => {
   try {
     const user = await User.register(req.body);
     // sign and assign token
     const token = jwt.sign(
-      { userID: user.id, userName: user.name },
+      { userID: user.id, userName: user.firstname },
       config.SECRET_KEY,
       { expiresIn: "1h" }
     );
