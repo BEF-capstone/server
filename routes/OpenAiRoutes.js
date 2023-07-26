@@ -1,43 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const axios = require("axios");
-
 const apiKey = process.env.OPENAI_API_KEY;
 
+// route health check
 router.get("/", async (req, res, next) => {
   return res.status(200).json({ message: "in OpenAi route" });
 });
 
-router.post("/completions", async (req, res, next) => {
-  const options = {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "user",
-          content:
-            "make an italian recipe with the following ingredients, tomato, garlic, pasta, bacon",
-        },
-      ],
-      max_tokens: 1000,
-    }),
-  };
-  try {
-    const response = await fetch(
-      "https://api.openai.com/v1/chat/completions",
-      options
-    );
-    const data = await response.json();
-    res.send(data);
-  } catch (e) {}
-});
-
+// make POST req to OpenAI API
 router.post("/create_recipe", async (req, res, next) => {
+  // get message info from req.body
+  const cuisine = req.body.cuisine;
+  const ingredients = req.body.ingredients;
+  console.log("cuisine: ", cuisine);
+  console.log("ingredients: ", ingredients);
   const options = {
     method: "POST",
     headers: {
@@ -54,20 +30,20 @@ router.post("/create_recipe", async (req, res, next) => {
         },
         {
           role: "user",
-          content:
-            "Create an italian recipe with the following ingredients: tomato, garlic, pasta, bacon",
+          content: `Create a ${cuisine} recipe with the following ingredients: ${ingredients.join()}`,
         },
       ],
     }),
   };
   try {
-    const message = await req.body.message;
-    console.log("message: ", message);
+    // make call to openAI completions endpoint
     const response = await fetch(
       "https://api.openai.com/v1/chat/completions",
       options
     );
+    // data is openAI response with
     const data = await response.json();
+    console.log(data);
     res.send(data);
   } catch (e) {
     console.error(e);

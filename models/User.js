@@ -71,11 +71,11 @@ class User {
       },
     });
 
-    return newUser;
+    return User.publicUser(newUser);
   };
 
   /**
-   * find user from email in the users table
+   * find user by email in the users table
    * @param {String} email
    * @returns user
    */
