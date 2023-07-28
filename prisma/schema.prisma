@@ -12,13 +12,36 @@ datasource db {
 
 // Map to the User table in postgresql
 model User {
-  id Int @id @default(autoincrement())
+  id Int             @id @default(autoincrement())
   createdAt DateTime @default(now())
-  email String @unique
+  email String       @unique
   firstname String
   lastname String
   password String
+  // favorites Favorites[]
+  
 }
+
+model Recipe {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  recipe_name String
+  description String
+  prep_time String
+  difficulty String
+  servings String
+  instructions Json
+  ingredients Json
+}
+
+// model Favorites {
+//   id     Int    @id @default(autoincrement())
+//   user   User   @relation(fields: [userId], references: [id])
+//   recipe Recipe @relation(fields: [recipeId], references: [id])
+//   userId Int
+//   recipeId Int
+// }
+
 
 
 
