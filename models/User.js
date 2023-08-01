@@ -62,7 +62,7 @@ class User {
     const normalizedEmail = email.toLowerCase();
 
     // create a new user in the user table using prisma-create
-    const newUser = await prisma.user.create({
+    const newUser = await prisma.User.create({
       data: {
         email: normalizedEmail,
         firstname: firstname,
@@ -80,7 +80,7 @@ class User {
    * @returns user
    */
   static fetchUserByEmail = async (email) => {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.User.findUnique({
       where: {
         email: email,
       },

@@ -1,6 +1,6 @@
 // const { get } = require("./routes/AuthRoutes");
 
-require("dotenv").config;
+require("dotenv").config();
 require("colors");
 
 const PORT = process.env.PORT ? Number(process.env.PORT) : 3001;
@@ -12,7 +12,7 @@ const getDatabaseUri = () => {
   const dbPassword = process.env.DATABASE_PASSWORD
     ? encodeURI(process.env.DATABASE_PASSWORD)
     : `postgres`;
-  const dbHost = process.env.DATABASE_HOST || `local`;
+  const dbHost = process.env.DATABASE_HOST || `localhost`;
   const dbPort = process.env.DATABASE_PORT || 5432;
   const dbTestName = process.env.DATABASE_TEST_NAME || `chef_compass_test`;
   const dbProdName = process.env.DATABASE_NAME || `chef_compass`;
