@@ -13,13 +13,14 @@ const openAIKey = process.env.OPENAI_API_KEY;
 // Defining Controllers
 const authRoutes = require("./routes/AuthRoutes");
 const openAIRoutes = require("./routes/OpenAiRoutes");
-
+const recipeRoutes = require("./routes/RecipeRoutes");
 // Defining Models
 const User = require("./models/User");
 
 // enabling the /api/auth route
 app.use("/api/auth", authRoutes);
 app.use("/api/openAi", openAIRoutes);
+app.use("/api/recipes", recipeRoutes);
 
 // health check
 app.get("/", function (req, res) {
