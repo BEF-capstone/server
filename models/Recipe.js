@@ -15,11 +15,8 @@ class Recipe {
       servings,
       instructions,
       ingredients,
+      createdBy,
     } = recipeData;
-
-    // let instructionsJSON = JSON.stringify(instructions);
-    // let ingredientsJSON = JSON.stringify(ingredients);
-
     const newRecipe = await prisma.recipe.create({
       data: {
         recipe_name: recipe_name,
@@ -32,14 +29,32 @@ class Recipe {
       },
     });
 
-    // do getUserID from email
-
+    await prisma.userRecipes.create({
+      data: {
+        user: { connect: { id: createdBy } },
+        recipe: { connect: { id: newRecipe.id } },
+      },
+    });
     return newRecipe;
   };
 
   // READ all recipes
   static getAllRecipes = async () => {
     return await prisma.recipe.findMany();
+  };
+
+  // READ all recipes for user based on userId
+  static getUserRecipes = async (userId) => {
+    const userRecipes = await prisma.userRecipes.findMany({
+      where: {
+        userId: userId,
+      },
+      include: {
+        recipe: true,
+      },
+    });
+    const recipesArray = userRecipes.map((userRecipe) => userRecipe.recipe);
+    return recipesArray;
   };
 }
 
