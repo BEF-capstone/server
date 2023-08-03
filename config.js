@@ -1,12 +1,15 @@
-// const { get } = require("./routes/AuthRoutes");
-
 require("dotenv").config();
 require("colors");
 
+/* CONSTANTS */
 const PORT = process.env.PORT ? Number(process.env.PORT) : 3001;
 const SECRET_KEY = process.env.SECRET_KEY || "secret-dev";
 const BCRYPT_WORK_FACTOR = 10;
 
+/**
+ * Construct database URI or return hosted URI from .env
+ * @returns String
+ */
 const getDatabaseUri = () => {
   const dbUser = process.env.DATABASE_USER || `postgres`;
   const dbPassword = process.env.DATABASE_PASSWORD
@@ -30,8 +33,8 @@ console.log(`Database:`.blue, getDatabaseUri());
 console.log(`---`);
 
 module.exports = {
-  PORT,
   getDatabaseUri,
+  PORT,
   BCRYPT_WORK_FACTOR,
   SECRET_KEY,
 };

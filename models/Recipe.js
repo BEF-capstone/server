@@ -28,7 +28,6 @@ class Recipe {
         ingredients: ingredients,
       },
     });
-
     await prisma.userRecipes.create({
       data: {
         user: { connect: { id: createdBy } },
@@ -55,6 +54,26 @@ class Recipe {
     });
     const recipesArray = userRecipes.map((userRecipe) => userRecipe.recipe);
     return recipesArray;
+  };
+
+  // READ and return a recipe based on recipe name and userId
+  static getRecipeByName = async (recipeRequestData) => {
+    // const { userId, recipeId } = recipeRequestData;
+    const { recipeName } = recipeRequestData;
+    const userRecipeByName = await prisma.recipe.findFirst({
+      where: {
+        recipe_name: recipeName,
+      },
+      // where: {
+      //   id: recipeId,
+      //   createdBy: {
+      //     some: {
+      //       userId: userId,
+      //     },
+      //   },
+      // },
+    });
+    return userRecipeByName;
   };
 }
 
