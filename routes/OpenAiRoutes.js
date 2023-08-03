@@ -2,14 +2,13 @@ const express = require("express");
 const router = express.Router();
 const apiKey = process.env.OPENAI_API_KEY;
 
-// route health check
+/* Health Check */
 router.get("/", async (req, res, next) => {
   return res.status(200).json({ message: "in OpenAi route" });
 });
 
-// make POST req to OpenAI API
+/* POST a req to openAI endpoint to create a recipe */
 router.post("/create_recipe", async (req, res, next) => {
-  // get message info from req.body
   const cuisine = req.body.cuisine;
   const ingredients = req.body.ingredients;
   console.log("cuisine: ", cuisine);

@@ -54,7 +54,6 @@ class User {
     const existingUserEmail = await User.fetchUserByEmail(email);
     if (existingUserEmail)
       throw new BadRequestError(`Duplicate Email: ${email}`);
-
     // hash user password
     const saltRounds = config.BCRYPT_WORK_FACTOR;
     const salt = await bcrypt.genSalt(saltRounds);
@@ -70,7 +69,6 @@ class User {
         password: hashedPassword,
       },
     });
-
     return User.publicUser(newUser);
   };
 
