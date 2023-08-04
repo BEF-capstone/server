@@ -57,23 +57,71 @@ class Recipe {
   };
 
   // READ and return a recipe based on recipe name and userId
-  static getRecipeByName = async (recipeRequestData) => {
+  static getRecipeByName = async (recipeReqData) => {
     // const { userId, recipeId } = recipeRequestData;
-    const { recipeName } = recipeRequestData;
+    const { recipeName } = recipeReqData;
     const userRecipeByName = await prisma.recipe.findFirst({
       where: {
         recipe_name: recipeName,
       },
-      // where: {
-      //   id: recipeId,
-      //   createdBy: {
-      //     some: {
-      //       userId: userId,
-      //     },
-      //   },
-      // },
     });
     return userRecipeByName;
+  };
+
+  // DELETE and return a deleted recipe
+  static deleteRecipe = async (recipeReqData) => {
+    const { recipeId, userId } = recipeReqData;
+    try {
+      const recipe = await prisma.recipe.findUnique({
+        where: {
+          id: recipeId,
+        },
+        select: {
+          createdBy: {
+            take: 1,
+            where: {
+              userId: userId,
+            },
+          },
+        },
+      });
+
+      if (!recipe) {
+        return {
+          success: false,
+          message: `Recipe with ID ${recipeId} not found for user with ID ${userId}`,
+        };
+      }
+
+      if (recipe) {
+        await prisma.userFavorites.deleteMany({
+          where: { recipeId },
+        });
+
+        await prisma.userRecipes.deleteMany({
+          where: { recipeId },
+        });
+
+        await prisma.recipe.delete({
+          where: { id: recipeId },
+        });
+        return {
+          success: true,
+          message: `Recipe with ID ${recipeId} deleted succesfully`,
+        };
+      } else {
+        return {
+          success: false,
+          message: `Recipe with ID ${recipeId} not found for user with ID ${userId}`,
+        };
+      }
+    } catch (e) {
+      console.error(`Error deleting recipe with ID ${recipeId}`, e);
+      return {
+        success: false,
+        message: `Failed to delete Recipe with ID ${recipeID}`,
+      };
+    }
   };
 }
 
