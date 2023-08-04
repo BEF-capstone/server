@@ -14,7 +14,9 @@ router.get("/", async (req, res, next) => {
 /* CREATE a new recipe entry */
 router.post("/add-recipe", async (req, res, next) => {
   try {
+    console.log(`trying to add recipe`);
     const recipe = await Recipe.insertRecipe(req.body);
+    console.log(`successfully added recipe`);
     return res.status(201).json({ message: "recipe added", recipe: recipe });
   } catch (e) {
     next(e);
