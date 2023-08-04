@@ -57,4 +57,17 @@ router.post("/recipe-by-name", async (req, res, next) => {
   }
 });
 
+/* DELETE a recipe from the recipe table */
+router.post("/delete-recipe", async (req, res, next) => {
+  try {
+    console.log(`in delete recipe route`);
+    const recipeRes = await Recipe.deleteRecipe(req.body);
+    return res.status(200).json(recipeRes);
+  } catch (e) {
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error" });
+  }
+});
+
 module.exports = router;

@@ -25,7 +25,7 @@ router.post("/create_recipe", async (req, res, next) => {
         {
           role: "system",
           content:
-            "Respond in JSON format with recipeName, recipeDescription, difficulty, servings, ingredients array, instructions array, prepTime",
+            "Respond in JSON format with recipe_name, description, difficulty, servings, ingredients array, instructions array, prep_time",
         },
         {
           role: "user",
