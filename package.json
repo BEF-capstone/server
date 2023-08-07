@@ -5,12 +5,13 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon --ignore 'db/*' server.js",
+    "build": "",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^5.1.0",
+    "@prisma/client": "^5.1.1",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "colors": "^1.4.0",
@@ -23,6 +24,6 @@
     "pg": "^8.11.1"
   },
   "devDependencies": {
-    "prisma": "^5.1.0"
+    "prisma": "^5.1.1"
   }
 }
