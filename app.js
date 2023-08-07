@@ -21,7 +21,7 @@ app.use("/api/recipes", recipeRoutes);
 // health check
 app.get("/", function (req, res) {
   return res.status(200).json({
-    ping: "pong",
+    health: "check",
   });
 });
 
