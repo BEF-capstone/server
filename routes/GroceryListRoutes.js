@@ -11,6 +11,7 @@ router.get("/", async (req, res, next) => {
 // Get all grocery list items for a user
 router.post("/get-grocery-list", async (req, res, next) => {
   try {
+    console.log(req.body);
     const groceryList = await GroceryList.getGroceryList(req.body);
     return res
       .status(200)
