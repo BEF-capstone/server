@@ -11,8 +11,6 @@ router.get("/", async (req, res, next) => {
 router.post("/create_recipe", async (req, res, next) => {
   const cuisine = req.body.cuisine;
   const ingredients = req.body.ingredients;
-  console.log("cuisine: ", cuisine);
-  console.log("ingredients: ", ingredients);
   const options = {
     method: "POST",
     headers: {
@@ -42,7 +40,6 @@ router.post("/create_recipe", async (req, res, next) => {
     );
     // data is openAI response with
     const data = await response.json();
-    console.log(data);
     res.send(data);
   } catch (e) {
     console.error(e);

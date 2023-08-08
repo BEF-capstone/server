@@ -14,9 +14,7 @@ router.get("/", async (req, res, next) => {
 /* CREATE a new recipe entry */
 router.post("/add-recipe", async (req, res, next) => {
   try {
-    console.log(`trying to add recipe`);
     const recipe = await Recipe.insertRecipe(req.body);
-    console.log(`successfully added recipe`);
     return res.status(201).json({ message: "recipe added", recipe: recipe });
   } catch (e) {
     next(e);
@@ -62,7 +60,6 @@ router.post("/recipe-by-name", async (req, res, next) => {
 /* DELETE a recipe from the recipe table */
 router.post("/delete-recipe", async (req, res, next) => {
   try {
-    console.log(`in delete recipe route`);
     const recipeRes = await Recipe.deleteRecipe(req.body);
     return res.status(200).json(recipeRes);
   } catch (e) {

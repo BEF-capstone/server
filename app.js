@@ -19,6 +19,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/openAi", openAIRoutes);
 app.use("/api/recipes", recipeRoutes);
 app.use("/api/grocery-list", groceryListRoutes);
+
 // health check
 app.get("/", function (req, res) {
   return res.status(200).json({
