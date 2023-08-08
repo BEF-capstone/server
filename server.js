@@ -1,8 +1,7 @@
 const app = require("./app");
 const { PORT } = require("./config");
 
-// Start the server
+// Listen to the server on PORT
 app.listen(PORT, () => {
-  //console logging the iniation of the server
   console.log(`Server running on port` + ` http://localhost:${PORT}`.blue);
 });
