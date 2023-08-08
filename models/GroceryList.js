@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 class GroceryList {
   /**
-   * Get a user's grocery list
+   * Get a user grocery list
    * @param {req} data
    * @returns
    */
