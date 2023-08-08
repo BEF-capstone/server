@@ -5,7 +5,7 @@ const GroceryList = require("../models/GroceryList");
 
 // Health Check
 router.get("/", async (req, res, next) => {
-  res.send(200).json({ message: "in grocery list route" });
+  return res.status(200).json({ message: "in grocery list route" });
 });
 
 // Get all grocery list items for a user
