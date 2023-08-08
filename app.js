@@ -12,12 +12,13 @@ app.use(express.json()); // Parse incoming requests with JSON payloads
 const authRoutes = require("./routes/AuthRoutes");
 const openAIRoutes = require("./routes/OpenAiRoutes");
 const recipeRoutes = require("./routes/RecipeRoutes");
+const groceryListRoutes = require("./routes/GroceryListRoutes");
 
 // enabling api endpoints
 app.use("/api/auth", authRoutes);
 app.use("/api/openAi", openAIRoutes);
 app.use("/api/recipes", recipeRoutes);
-
+app.use("/api/grocery-list", groceryListRoutes);
 // health check
 app.get("/", function (req, res) {
   return res.status(200).json({

@@ -16,6 +16,7 @@ model User {
   password    String
   favorites   UserFavorites[]
   userRecipes UserRecipes[]
+  groceryList GroceryListItem[]
 }
 
 model Recipe {
@@ -36,8 +37,8 @@ model UserRecipes {
   id       Int    @id @default(autoincrement())
   userId   Int
   recipeId Int
-  recipe   Recipe @relation(fields: [recipeId], references: [id])
-  user     User   @relation(fields: [userId], references: [id])
+  recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model UserFavorites {
@@ -46,4 +47,12 @@ model UserFavorites {
   recipeId Int
   recipe   Recipe @relation(fields: [recipeId], references: [id])
   user     User   @relation(fields: [userId], references: [id])
+}
+
+
+model GroceryListItem {
+  id       Int     @id @default(autoincrement())
+  userId   Int
+  item     String
+  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
