@@ -37,7 +37,6 @@ router.post("/login", async (req, res, next) => {
 // Assign a token
 router.post("/register", async (req, res, next) => {
   try {
-    console.log("here");
     const user = await User.register(req.body);
     // Sign and assign token
     const token = jwt.sign(

@@ -9,8 +9,6 @@ class GroceryList {
    */
   static getGroceryList = async (data) => {
     const { userId } = data;
-    console.log(`userId: ${userId}`);
-    console.log(`in grocery list`);
     const userGroceryList = await prisma.user.findUnique({
       where: {
         id: userId,
@@ -19,7 +17,6 @@ class GroceryList {
         groceryList: true,
       },
     });
-    console.log(userGroceryList);
 
     if (!userGroceryList) {
       throw new Error("User not found.");
@@ -35,7 +32,6 @@ class GroceryList {
    */
   static addItem = async (data) => {
     const { userId, newItem } = data;
-    console.log(userId, newItem);
     const newGroceryListItem = {
       item: newItem,
     };
@@ -75,7 +71,6 @@ class GroceryList {
    * @returns
    */
   static removeItem = async (data) => {
-    console.log(data);
     const { userId, id } = data;
 
     // find the user

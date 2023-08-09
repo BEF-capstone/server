@@ -58,7 +58,6 @@ class Recipe {
 
   // READ and return a recipe based on recipe name and userId
   static getRecipeByName = async (recipeReqData) => {
-    // const { userId, recipeId } = recipeRequestData;
     const { recipeName } = recipeReqData;
     const userRecipeByName = await prisma.recipe.findFirst({
       where: {
